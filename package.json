@@ -10,6 +10,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "core-js": "^3.4.4",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
     "vue": "^2.6.10"
@@ -34,7 +35,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+		"no-unused-vars": "off"
+	},
     "parserOptions": {
       "parser": "babel-eslint"
     }
