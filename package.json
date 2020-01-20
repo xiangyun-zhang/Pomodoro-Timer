@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.4.4",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {
