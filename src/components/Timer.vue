@@ -11,32 +11,32 @@
 		<div class="container">
 			<div class="clock">
 				<div class="clock_timer">
-					<div class="dial"><span></span><br /><b>0</b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b>5</b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b>10</b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b>15</b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b>20</b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b></b></div>
-					<div class="dial"><span></span><br /><b>25</b></div>
+					<div class="dial"><b>0</b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b>5</b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b>10</b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b>15</b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b>20</b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b></b><br /><span></span></div>
+					<div class="dial"><b>25</b><br /><span></span></div>
 				</div>
 				<div class="clock_dial">
 					<div class="dial"><span></span><br /><b>12</b></div>
@@ -71,7 +71,7 @@ export default {
 		for(let i=0;i<timer_dial.length;i++){
 			let angle=360/60*i;
 			timer_dial[i].style.transform='rotate('+angle+'deg)';
-			timer_dial[i].lastChild.style.transform='rotate('+-angle+'deg)';
+			timer_dial[i].firstChild.style.transform='rotate('+-angle+'deg)';
 			
 		}
 		let that = this;
@@ -212,20 +212,21 @@ export default {
 			.dial{
 				span{
 					width:1px;
+					height: 12px;
 				}
 			}
 		}
 		.clock_dial{
 			font-size: 18px;
-			width:70%;
-			height: 70%;
+			width:74%;
+			height: 74%;
 			background-color: rgb(249, 205, 173);
-			top:15%;
-			left:15%;
+			top:13%;
+			left:13%;
 			border-radius: 50%;
 			position: relative;
 			.dial{
-				left:95px;
+				left:101px;
 				span{
 					height: 15px;
 					display: inline-block;
