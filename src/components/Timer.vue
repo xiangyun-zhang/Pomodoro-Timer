@@ -8,46 +8,49 @@
 		<span>距离{{ action?(status=='work'?'工作':'休息'):'工作' }}结束还有 {{ action?minutes:getMinutes(workTime*60) }} 分 {{action?seconds:getSeconds(workTime*60)}} 秒</span>
 		<button v-if="action" v-on:click="resetTimer()">停止</button>
 		<button v-else v-on:click="beginWork()">开始</button>
-		<div class="container">
-			<div class="clock">
-				<div class="clock_timer">
-					<div class="dial"><b>0</b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b>5</b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b>10</b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b>15</b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b>20</b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b></b><br /><span></span></div>
-					<div class="dial"><b>25</b><br /><span></span></div>
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="clock">
+					<div class="clock_timer">
+						<div class="dial"><b>0</b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b>5</b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b>10</b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b>15</b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b>20</b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b>25</b><br /><span></span></div>
+					</div>
+					<div class="clock_dial">
+						<div class="dial"><span></span><br /><b>12</b></div>
+						<div class="dial"><span></span><br /><b>3</b></div>
+						<div class="dial"><span></span><br /><b>6</b></div>
+						<div class="dial"><span></span><br /><b>9</b></div>
+					</div>
+					<div class="H"><span></span></div>
+					<div class="M"><span></span></div>
+					<div class="S"><span></span></div>
 				</div>
-				<div class="clock_dial">
-					<div class="dial"><span></span><br /><b>12</b></div>
-					<div class="dial"><span></span><br /><b>3</b></div>
-					<div class="dial"><span></span><br /><b>6</b></div>
-					<div class="dial"><span></span><br /><b>9</b></div>
-				</div>
-				<div class="H"><span></span></div>
-				<div class="M"><span></span></div>
-				<div class="S"><span></span></div>
 			</div>
+			
 		</div>
 	</div>
 </template>
