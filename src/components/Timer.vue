@@ -12,7 +12,7 @@
 		<div class="container-fluid">
 			<div class="row justify-content-center">
 				<div class="clock" v-on:click="beginWork()">
-					<div class="clock_timer">
+					<div class="clock_timer" v-show="status == 'work' || status == 'unhold'">
 						<div class="dial"><b>0</b><br /><span></span></div>
 						<div class="dial"><b></b><br /><span></span></div>
 						<div class="dial"><b></b><br /><span></span></div>
@@ -39,6 +39,14 @@
 						<div class="dial"><b></b><br /><span></span></div>
 						<div class="dial"><b></b><br /><span></span></div>
 						<div class="dial"><b>25</b><br /><span></span></div>
+					</div>
+					<div class="clock_timer" v-show="status == 'rest'">
+						<div class="dial"><b>0</b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b></b><br /><span></span></div>
+						<div class="dial"><b>5</b><br /><span></span></div>
 					</div>
 					<div class="clock_dial">
 						<div class="dial"><span></span><br /><b>12</b></div>
@@ -71,21 +79,14 @@ export default {
 			clock_dial[i].lastChild.style.transform='rotate('+-angle+'deg)';
 			
 		}
-		// 制作计时器
-		let	timer_dial=document.querySelectorAll('.clock_timer .dial');
-		for(let i=0;i<timer_dial.length;i++){
-			let angle=360/60*i;
-			timer_dial[i].style.transform='rotate('+angle+'deg)';
-			timer_dial[i].firstChild.style.transform='rotate('+-angle+'deg)';
-			
-		}
+		this.setTimer();
 		let that = this;
 		setInterval(function(){that.clockMove();},1000);
 	},
 	data() {
 		return {
 			action: false,			// 番茄时钟是否进行状态
-			status: 'pending',		// 工作状态：work、rest、unhold
+			status: 'unhold',		// 工作状态：work、rest、unhold
 			groupCount: 4,			// 一个工作组包含的番茄时钟数
 			workCount: 0,			// 正在进行的番茄时钟完成数
 			haveFinished: 0,		// 已经完成的番茄时钟个数
@@ -157,7 +158,7 @@ export default {
 			// 获得当前分钟
 			let M = nowTime.getMinutes();
 			let clock_timer = document.querySelector('.clock_timer');
-			// 将计时器与当前分钟对齐
+			// 将计时器刻度与当前分钟对齐
 			clock_timer.style.transform='rotate('+M*6+'deg)';
 			
 			// 执行倒计时
@@ -171,6 +172,7 @@ export default {
 			this.status = 'rest';
 			let restTime = this.workCount%this.groupCount == 0? this.longRest:this.shortRest;
 			this.maxtime = restTime * 60-1;
+			this.setTimer();
 			// 执行倒计时
 			let that = this;
 			clearInterval(this.timer);
@@ -190,6 +192,15 @@ export default {
 			S_clock.style.transform='rotate('+S*6+'deg)';
 			H_clock.style.transform='rotate('+(H*30+30/60*M)+'deg)';
 			M_clock.style.transform='rotate('+M*6+'deg)';
+		},
+		// 制作计时器
+		setTimer:function(){
+			let	timer_dial=document.querySelectorAll('.clock_timer .dial');
+			for(let i=0;i<timer_dial.length;i++){
+				let angle=360/60*i;
+				timer_dial[i].style.transform='rotate('+angle+'deg)';
+				timer_dial[i].firstChild.style.transform='rotate('+-angle+'deg)';
+			}
 		}
 	}
 }
