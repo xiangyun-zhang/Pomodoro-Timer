@@ -1,4 +1,4 @@
-# pomodoro 
+# Pomodoro Timer 
 
 ## Project setup
 ```
