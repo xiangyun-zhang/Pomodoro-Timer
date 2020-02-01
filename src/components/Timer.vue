@@ -1,16 +1,17 @@
 <template>
 	<div class="timer">
 		<p>工作时长为
-		<button v-on:click="function(){workTime>5?workTime-=5:workTime=5}">-</button>
+		<!-- <button v-on:click="function(){workTime>5?workTime-=5:workTime=5}">-</button> -->
 		{{ getMinutes(workTime*60) }} 
-		<button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button>
+		<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
+		分钟
 		</p>
 		<span>距离{{ action?(status=='work'?'工作':'休息'):'工作' }}结束还有 {{ action?minutes:getMinutes(workTime*60) }} 分 {{action?seconds:getSeconds(workTime*60)}} 秒</span>
 		<button v-if="action" v-on:click="resetTimer()">停止</button>
 		<button v-else v-on:click="beginWork()">开始</button>
 		<div class="container-fluid">
 			<div class="row justify-content-center">
-				<div class="clock">
+				<div class="clock" v-on:click="beginWork()">
 					<div class="clock_timer">
 						<div class="dial"><b>0</b><br /><span></span></div>
 						<div class="dial"><b></b><br /><span></span></div>
@@ -56,6 +57,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
 	name: 'Timer',
 	props: {
@@ -93,7 +95,7 @@ export default {
 			maxtime: 0,				// 倒计时总时长（秒）
 			minutes: '00',
 			seconds: '00',
-			timer: 0,
+			timer: 0,				// 执行计时器
 		}
 	},
 	methods:{		
@@ -117,6 +119,10 @@ export default {
 			// 获取初始状态下需要显示的分钟数和秒数
 			this.minutes = this.getMinutes(this.workTime * 60);
 			this.seconds = this.getSeconds(this.workTime * 60);
+			
+			// 重置计时器表盘
+			let clock_timer = document.querySelector('.clock_timer');
+			clock_timer.style.transform='rotate('+0+'deg)';
 		},
 		
 		// 倒计时逻辑
@@ -145,6 +151,15 @@ export default {
 			this.status = 'work';
 			// 执行倒计时的时候已经延迟 一秒执行，所以总时间要先减去一秒
 			this.maxtime = this.workTime * 60-1;
+			
+			// 获取当前时间
+			let nowTime=new Date();
+			// 获得当前分钟
+			let M = nowTime.getMinutes();
+			let clock_timer = document.querySelector('.clock_timer');
+			// 将计时器与当前分钟对齐
+			clock_timer.style.transform='rotate('+M*6+'deg)';
+			
 			// 执行倒计时
 			let that = this;
 			clearInterval(this.timer);
@@ -212,6 +227,7 @@ export default {
 			top:0;
 			left:0;
 			position: absolute;
+			transition:1.5s;
 			.dial{
 				span{
 					width:1px;
