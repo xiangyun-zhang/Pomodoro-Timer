@@ -136,10 +136,18 @@ export default {
 				if(this.action && this.status == 'work'){
 					this.haveFinished++;
 					this.workCount++;
-					alert("时间到，结束！可以开始休息了！");
+					if(window.Notification && Notification.permission === "granted"){
+						let n = new Notification("时间到", {body: "活动下身子，休息一下吧。"}); // 显示通知
+					}else{
+						alert("时间到，活动下身子，休息一下吧。");
+					}
 					this.beginRest();
 				}else{
-					alert("休息结束，准备开始新一轮番茄时钟吧！");
+					if(window.Notification && Notification.permission === "granted"){
+						let n = new Notification("休息结束", {body: "准备开始新一轮番茄时钟吧。"}); // 显示通知
+					}else{
+						alert("休息结束，准备开始新一轮番茄时钟吧。");
+					}
 					this.beginWork();
 				}
 			
