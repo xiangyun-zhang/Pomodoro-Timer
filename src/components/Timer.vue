@@ -146,7 +146,7 @@
 							<span></span>
 						</div>
 					</div>
-					<div class="clock_timer" v-else-if="status == 'rest'">
+					<div class="clock_timer" v-else-if="status == 'rest' && this.workCount % this.groupCount !== 0">
 						<div class="dial">
 							<b>0</b>
 							<br />
@@ -174,6 +174,88 @@
 						</div>
 						<div class="dial">
 							<b>5</b>
+							<br />
+							<span></span>
+						</div>
+					</div>
+					<div class="clock_timer" v-else-if="status == 'rest' && this.workCount % this.groupCount == 0">
+						<div class="dial">
+							<b>0</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>5</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>10</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>15</b>
 							<br />
 							<span></span>
 						</div>
