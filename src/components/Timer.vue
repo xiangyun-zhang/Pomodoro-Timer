@@ -14,47 +14,191 @@
 		<div class="container-fluid">
 			<div class="row justify-content-center">
 				<div class="clock" v-on:click="action ? resetTimer() : beginWork()">
-					<div class="clock_timer" v-show="status == 'work' || status == 'unhold'">
-						<div class="dial"><b>0</b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b>5</b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b>10</b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b>15</b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b>20</b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b>25</b><br /><span></span></div>
+					<div class="clock_timer" v-if="status == 'work' || status == 'unhold'">
+						<div class="dial">
+							<b>0</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>5</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>10</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>15</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>20</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>25</b>
+							<br />
+							<span></span>
+						</div>
 					</div>
-					<div class="clock_timer" v-show="status == 'rest'">
-						<div class="dial"><b>0</b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b></b><br /><span></span></div>
-						<div class="dial"><b>5</b><br /><span></span></div>
+					<div class="clock_timer" v-else-if="status == 'rest'">
+						<div class="dial">
+							<b>0</b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b></b>
+							<br />
+							<span></span>
+						</div>
+						<div class="dial">
+							<b>5</b>
+							<br />
+							<span></span>
+						</div>
 					</div>
 					<div class="clock_dial">
-						<div class="dial"><span></span><br /><b>12</b></div>
-						<div class="dial"><span></span><br /><b>3</b></div>
-						<div class="dial"><span></span><br /><b>6</b></div>
-						<div class="dial"><span></span><br /><b>9</b></div>
+						<div class="dial">
+							<span></span>
+							<br />
+							<b>12</b>
+						</div>
+						<div class="dial">
+							<span></span>
+							<br />
+							<b>3</b>
+						</div>
+						<div class="dial">
+							<span></span>
+							<br />
+							<b>6</b>
+						</div>
+						<div class="dial">
+							<span></span>
+							<br />
+							<b>9</b>
+						</div>
 					</div>
 					<div class="H"><span></span></div>
 					<div class="M"><span></span></div>
@@ -83,6 +227,18 @@ export default {
 		setInterval(function() {
 			that.clockMove();
 		}, 1000);
+	},
+	computed: {
+		timerStatus: function() {
+			return this.status;
+		}
+	},
+	watch: {
+		timerStatus() {
+			this.$nextTick(function() {
+				this.setTimer();
+			});
+		}
 	},
 	data() {
 		return {
@@ -160,15 +316,7 @@ export default {
 			this.status = 'work';
 			// 执行倒计时的时候已经延迟 一秒执行，所以总时间要先减去一秒
 			this.maxtime = this.workTime * 60 - 1;
-
-			// 获取当前时间
-			let nowTime = new Date();
-			// 获得当前分钟
-			let M = nowTime.getMinutes();
-			let clock_timer = document.querySelector('.clock_timer');
-			// 将计时器刻度与当前分钟对齐
-			clock_timer.style.transform = 'rotate(' + M * 6 + 'deg)';
-
+			this.timerCalibration();
 			// 执行倒计时
 			let that = this;
 			clearInterval(this.timer);
@@ -176,13 +324,12 @@ export default {
 				that.countDown();
 			}, 1000);
 		},
-
 		// 休息
 		beginRest: function() {
 			this.status = 'rest';
 			let restTime = this.workCount % this.groupCount == 0 ? this.longRest : this.shortRest;
 			this.maxtime = restTime * 60 - 1;
-			this.setTimer();
+			this.timerCalibration();
 			// 执行倒计时
 			let that = this;
 			clearInterval(this.timer);
@@ -213,6 +360,16 @@ export default {
 				timer_dial[i].style.transform = 'rotate(' + angle + 'deg)';
 				timer_dial[i].firstChild.style.transform = 'rotate(' + -angle + 'deg)';
 			}
+		},
+		// 计时器校准，0刻度对准当前分针
+		timerCalibration: function() {
+			// 获取当前时间
+			let nowTime = new Date();
+			// 获得当前分钟
+			let M = nowTime.getMinutes();
+			let clock_timer = document.querySelector('.clock_timer');
+			// 将计时器刻度与当前分钟对齐
+			clock_timer.style.transform = 'rotate(' + M * 6 + 'deg)';
 		}
 	}
 };
