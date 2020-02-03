@@ -329,12 +329,12 @@ export default {
 		return {
 			action: false, // 番茄时钟是否进行状态
 			status: 'unhold', // 工作状态：work、rest、unhold
-			groupCount: 4, // 一个工作组包含的番茄时钟数
+			groupCount: process.env.VUE_APP_SECRET, // 一个工作组包含的番茄时钟数
 			workCount: 0, // 正在进行的番茄时钟完成数
 			haveFinished: 0, // 已经完成的番茄时钟个数
-			workTime: 25, // 番茄时钟工作时间（分）
-			shortRest: 5, // 短休息时长（分）
-			longRest: 15, // 长休息时长（分）
+			workTime: process.env.VUE_APP_WORK_TIME, // 番茄时钟工作时间（分）
+			shortRest: process.env.VUE_APP_SHORT_TIME, // 短休息时长（分）
+			longRest: process.env.VUE_APP_LONG_REST, // 长休息时长（分）
 			maxtime: 0, // 倒计时总时长（秒）
 			minutes: '00',
 			seconds: '00',
