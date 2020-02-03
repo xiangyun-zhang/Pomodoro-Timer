@@ -16,7 +16,7 @@
 		</div>
 		<div class="container-fluid">
 			<div class="row justify-content-center">
-				<div class="clock" v-on:click="action ? resetTimer() : beginWork()">
+				<div class="clock mt-4" v-on:click="action ? resetTimer() : beginWork()">
 					<div class="clock_timer" v-if="status == 'work' || status == 'unhold'">
 						<div class="dial">
 							<b>0</b>
@@ -296,9 +296,29 @@
 
 <script>
 import $ from 'jquery';
+var storage = window.localStorage;
 export default {
 	name: 'Timer',
 	props: {},
+	created: function() {
+		// 在渲染前拿到当天已完成的次数，若没有则新建当天记数字段
+		let nowTime = new Date();
+		let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
+		let finishedHash = storage.getItem('have_finished');
+		if (finishedHash == null) {
+			finishedHash = new Object();
+			finishedHash[today] = this.haveFinished;
+			storage.setItem('have_finished', JSON.stringify(finishedHash));
+		} else {
+			finishedHash = JSON.parse(finishedHash);
+			if (finishedHash[today] == undefined) {
+				finishedHash[today] = this.haveFinished;
+				storage.setItem('have_finished', JSON.stringify(finishedHash));
+			} else {
+				this.haveFinished = finishedHash[today];
+			}
+		}
+	},
 	mounted: function() {
 		// 制作表盘
 		let clock_dial = document.querySelectorAll('.clock_dial .dial');
@@ -323,6 +343,15 @@ export default {
 			this.$nextTick(function() {
 				this.setTimer();
 			});
+		},
+		// 每次 haveFinished 变量更新的时候，更新 localStorage 内的对应数据，完成当天数据记录
+		haveFinished: function() {
+			let nowTime = new Date();
+			let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
+			let finishedHash = storage.getItem('have_finished');
+			finishedHash = JSON.parse(finishedHash);
+			finishedHash[today] = this.haveFinished;
+			storage.setItem('have_finished', JSON.stringify(finishedHash));
 		}
 	},
 	data() {
@@ -379,16 +408,16 @@ export default {
 					this.haveFinished++;
 					this.workCount++;
 					if (window.Notification && Notification.permission === 'granted') {
-						if(this.workCount % this.groupCount == 0){
+						if (this.workCount % this.groupCount == 0) {
 							let n = new Notification('时间到', { body: '这次可以休息久一些，活动下身子吧。' }); // 显示通知
-						}else{
+						} else {
 							let n = new Notification('时间到', { body: '稍微休息下，下一轮番茄时钟很快就到。' }); // 显示通知
 						}
 					} else {
-						if(this.workCount % this.groupCount == 0){
-							alert('这次可以休息久一些，活动下身子吧。')
-						}else{
-							alert('稍微休息下，下一轮番茄时钟很快就到。')
+						if (this.workCount % this.groupCount == 0) {
+							alert('这次可以休息久一些，活动下身子吧。');
+						} else {
+							alert('稍微休息下，下一轮番茄时钟很快就到。');
 						}
 					}
 					this.beginRest();
