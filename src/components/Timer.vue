@@ -1,16 +1,19 @@
 <template>
 	<div class="timer">
-		<p>
-			工作时长为
-			<!-- <button v-on:click="function(){workTime>5?workTime-=5:workTime=5}">-</button> -->
-			{{ getMinutes(workTime * 60) }}
-			<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
-			分钟
-		</p>
-		<span>
-			距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
-			{{ action ? seconds : getSeconds(workTime * 60) }} 秒
-		</span>
+		<div class="container-fluid">
+			<p>今日你已完成 {{ haveFinished }} 个番茄时钟</p>
+			<p>
+				工作时长为
+				<!-- <button v-on:click="function(){workTime>5?workTime-=5:workTime=5}">-</button> -->
+				{{ getMinutes(workTime * 60) }}
+				<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
+				分钟
+			</p>
+			<span>
+				距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
+				{{ action ? seconds : getSeconds(workTime * 60) }} 秒
+			</span>
+		</div>
 		<div class="container-fluid">
 			<div class="row justify-content-center">
 				<div class="clock" v-on:click="action ? resetTimer() : beginWork()">
@@ -376,9 +379,17 @@ export default {
 					this.haveFinished++;
 					this.workCount++;
 					if (window.Notification && Notification.permission === 'granted') {
-						let n = new Notification('时间到', { body: '活动下身子，休息一下吧。' }); // 显示通知
+						if(this.workCount % this.groupCount == 0){
+							let n = new Notification('时间到', { body: '这次可以休息久一些，活动下身子吧。' }); // 显示通知
+						}else{
+							let n = new Notification('时间到', { body: '稍微休息下，下一轮番茄时钟很快就到。' }); // 显示通知
+						}
 					} else {
-						alert('时间到，活动下身子，休息一下吧。');
+						if(this.workCount % this.groupCount == 0){
+							alert('这次可以休息久一些，活动下身子吧。')
+						}else{
+							alert('稍微休息下，下一轮番茄时钟很快就到。')
+						}
 					}
 					this.beginRest();
 				} else {
