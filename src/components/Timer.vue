@@ -1,19 +1,22 @@
 <template>
 	<div class="timer">
-		<p>
-			工作时长为
-			<!-- <button v-on:click="function(){workTime>5?workTime-=5:workTime=5}">-</button> -->
-			{{ getMinutes(workTime * 60) }}
-			<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
-			分钟
-		</p>
-		<span>
-			距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
-			{{ action ? seconds : getSeconds(workTime * 60) }} 秒
-		</span>
+		<div class="container-fluid">
+			<p>今日你已完成 {{ haveFinished }} 个番茄时钟</p>
+			<p>
+				工作时长为
+				<!-- <button v-on:click="function(){workTime>5?workTime-=5:workTime=5}">-</button> -->
+				{{ getMinutes(workTime * 60) }}
+				<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
+				分钟
+			</p>
+			<span>
+				距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
+				{{ action ? seconds : getSeconds(workTime * 60) }} 秒
+			</span>
+		</div>
 		<div class="container-fluid">
 			<div class="row justify-content-center">
-				<div class="clock" v-on:click="action ? resetTimer() : beginWork()">
+				<div class="clock mt-4" v-on:click="action ? resetTimer() : beginWork()">
 					<div class="clock_timer" v-if="status == 'work' || status == 'unhold'">
 						<div class="dial">
 							<b>0</b>
@@ -293,9 +296,29 @@
 
 <script>
 import $ from 'jquery';
+var storage = window.localStorage;
 export default {
 	name: 'Timer',
 	props: {},
+	created: function() {
+		// 在渲染前拿到当天已完成的次数，若没有则新建当天记数字段
+		let nowTime = new Date();
+		let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
+		let finishedHash = storage.getItem('have_finished');
+		if (finishedHash == null) {
+			finishedHash = new Object();
+			finishedHash[today] = this.haveFinished;
+			storage.setItem('have_finished', JSON.stringify(finishedHash));
+		} else {
+			finishedHash = JSON.parse(finishedHash);
+			if (finishedHash[today] == undefined) {
+				finishedHash[today] = this.haveFinished;
+				storage.setItem('have_finished', JSON.stringify(finishedHash));
+			} else {
+				this.haveFinished = finishedHash[today];
+			}
+		}
+	},
 	mounted: function() {
 		// 制作表盘
 		let clock_dial = document.querySelectorAll('.clock_dial .dial');
@@ -320,18 +343,27 @@ export default {
 			this.$nextTick(function() {
 				this.setTimer();
 			});
+		},
+		// 每次 haveFinished 变量更新的时候，更新 localStorage 内的对应数据，完成当天数据记录
+		haveFinished: function() {
+			let nowTime = new Date();
+			let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
+			let finishedHash = storage.getItem('have_finished');
+			finishedHash = JSON.parse(finishedHash);
+			finishedHash[today] = this.haveFinished;
+			storage.setItem('have_finished', JSON.stringify(finishedHash));
 		}
 	},
 	data() {
 		return {
 			action: false, // 番茄时钟是否进行状态
 			status: 'unhold', // 工作状态：work、rest、unhold
-			groupCount: 4, // 一个工作组包含的番茄时钟数
+			groupCount: process.env.VUE_APP_SECRET, // 一个工作组包含的番茄时钟数
 			workCount: 0, // 正在进行的番茄时钟完成数
 			haveFinished: 0, // 已经完成的番茄时钟个数
-			workTime: 25, // 番茄时钟工作时间（分）
-			shortRest: 5, // 短休息时长（分）
-			longRest: 15, // 长休息时长（分）
+			workTime: process.env.VUE_APP_WORK_TIME, // 番茄时钟工作时间（分）
+			shortRest: process.env.VUE_APP_SHORT_TIME, // 短休息时长（分）
+			longRest: process.env.VUE_APP_LONG_REST, // 长休息时长（分）
 			maxtime: 0, // 倒计时总时长（秒）
 			minutes: '00',
 			seconds: '00',
@@ -376,9 +408,17 @@ export default {
 					this.haveFinished++;
 					this.workCount++;
 					if (window.Notification && Notification.permission === 'granted') {
-						let n = new Notification('时间到', { body: '活动下身子，休息一下吧。' }); // 显示通知
+						if (this.workCount % this.groupCount == 0) {
+							let n = new Notification('时间到', { body: '这次可以休息久一些，活动下身子吧。' }); // 显示通知
+						} else {
+							let n = new Notification('时间到', { body: '稍微休息下，下一轮番茄时钟很快就到。' }); // 显示通知
+						}
 					} else {
-						alert('时间到，活动下身子，休息一下吧。');
+						if (this.workCount % this.groupCount == 0) {
+							alert('这次可以休息久一些，活动下身子吧。');
+						} else {
+							alert('稍微休息下，下一轮番茄时钟很快就到。');
+						}
 					}
 					this.beginRest();
 				} else {
