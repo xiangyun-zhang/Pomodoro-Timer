@@ -533,7 +533,8 @@ export default {
 		.dial {
 			span {
 				width: 1px;
-				height: 12px;
+				height: 30px;
+				vertical-align: bottom;
 			}
 		}
 	}
@@ -611,6 +612,64 @@ export default {
 			bottom: 10px;
 			left: -3.5px;
 		}
+	}
+}
+
+// mobile
+@media (min-width: 576px) {
+	.clock {
+		width: 500px;
+		height: 500px;
+
+		.dial {
+			left: 240px;
+		}
+
+		.clock_timer {
+			font-size: 25px;
+			.dial {
+				span {
+					width: 2px;
+					vertical-align: bottom;
+				}
+			}
+		}
+
+		.clock_dial {
+			font-size: 25px;
+			.dial {
+				left: 175px;
+				span {
+					height: 20px;
+				}
+			}
+		}
+		.H {
+			span {
+				height: 135px;
+				margin-top: 125px;
+			}
+		}
+
+		.M {
+			span {
+				height: 165px;
+				margin-top: 95px;
+			}
+		}
+		.S {
+			span {
+				height: 190px;
+				margin-top: 76px;
+			}
+		}
+	}
+}
+// pad
+@media (min-width: 768px) {
+	.clock {
+		width: 600px;
+		height: 600px;
 	}
 }
 </style>
