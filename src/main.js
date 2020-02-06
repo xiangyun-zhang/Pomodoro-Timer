@@ -5,6 +5,7 @@ import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'font-awesome/css/font-awesome.min.css'
+import './css/pomodoro.css'
 
 Vue.config.productionTip = false
 

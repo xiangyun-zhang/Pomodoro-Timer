@@ -1,6 +1,6 @@
 <template>
 	<div class="timer">
-		<div class="container-fluid">
+		<div class="container">
 			<p>今日你已完成 {{ haveFinished }} 个番茄时钟</p>
 			<p>
 				工作时长为
@@ -9,14 +9,10 @@
 				<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
 				分钟
 			</p>
-			<span>
-				距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
-				{{ action ? seconds : getSeconds(workTime * 60) }} 秒
-			</span>
 		</div>
-		<div class="container-fluid">
-			<div class="row justify-content-center">
-				<div class="clock mt-4" v-on:click="action ? resetTimer() : beginWork()">
+		<div class="container">
+			<div class="row justify-content-center mt-4">
+				<div class="clock" v-on:click="action ? resetTimer() : beginWork()">
 					<div class="clock_timer" v-if="status == 'work' || status == 'unhold'">
 						<div class="dial">
 							<b>0</b>
@@ -285,12 +281,16 @@
 							<b>9</b>
 						</div>
 					</div>
+					<div class="count_down">
+						<span>{{ action ? minutes : getMinutes(workTime * 60) }} : {{ action ? seconds : getSeconds(workTime * 60) }}</span>
+					</div>
 					<div class="H"><span></span></div>
 					<div class="M"><span></span></div>
 					<div class="S"><span></span></div>
 				</div>
 			</div>
 		</div>
+		<div class="container"><div class="row justify-content-center mt-4"></div></div>
 	</div>
 </template>
 
@@ -513,7 +513,7 @@ export default {
 		left: 140px;
 
 		span {
-			width: 5px;
+			width: 6px;
 			height: 10px;
 			background: black;
 			display: inline-block;
@@ -533,7 +533,8 @@ export default {
 		.dial {
 			span {
 				width: 1px;
-				height: 12px;
+				height: 30px;
+				vertical-align: bottom;
 			}
 		}
 	}
@@ -556,6 +557,12 @@ export default {
 				display: inline-block;
 			}
 		}
+	}
+
+	.count_down {
+		position: absolute;
+		left: 42%;
+		top: 60%;
 	}
 
 	.H,
@@ -610,6 +617,65 @@ export default {
 			position: absolute;
 			bottom: 10px;
 			left: -3.5px;
+		}
+	}
+}
+
+// pad & pc
+@media (min-width: 768px) {
+	.timer {
+		font-size: 2rem;
+	}
+	.clock {
+		width: 500px;
+		height: 500px;
+
+		.dial {
+			left: 240px;
+		}
+
+		.clock_timer {
+			font-size: 25px;
+			.dial {
+				span {
+					width: 2px;
+					vertical-align: bottom;
+				}
+			}
+		}
+
+		.clock_dial {
+			font-size: 25px;
+			.dial {
+				left: 175px;
+				span {
+					height: 20px;
+				}
+			}
+		}
+
+		.count_down {
+			left: 41%;
+		}
+
+		.H {
+			span {
+				height: 135px;
+				margin-top: 125px;
+			}
+		}
+
+		.M {
+			span {
+				height: 165px;
+				margin-top: 95px;
+			}
+		}
+		.S {
+			span {
+				height: 190px;
+				margin-top: 76px;
+			}
 		}
 	}
 }
