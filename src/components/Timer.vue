@@ -615,8 +615,8 @@ export default {
 	}
 }
 
-// mobile
-@media (min-width: 576px) {
+// pad & pc
+@media (min-width: 768px) {
 	.clock {
 		width: 500px;
 		height: 500px;
@@ -663,13 +663,6 @@ export default {
 				margin-top: 76px;
 			}
 		}
-	}
-}
-// pad
-@media (min-width: 768px) {
-	.clock {
-		width: 600px;
-		height: 600px;
 	}
 }
 </style>
