@@ -9,14 +9,10 @@
 				<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
 				分钟
 			</p>
-			<span>
-				距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
-				{{ action ? seconds : getSeconds(workTime * 60) }} 秒
-			</span>
 		</div>
-		<div class="container-fluid">
-			<div class="row justify-content-center">
-				<div class="clock mt-4" v-on:click="action ? resetTimer() : beginWork()">
+		<div class="container">
+			<div class="row justify-content-center mt-4">
+				<div class="clock" v-on:click="action ? resetTimer() : beginWork()">
 					<div class="clock_timer" v-if="status == 'work' || status == 'unhold'">
 						<div class="dial">
 							<b>0</b>
@@ -289,6 +285,14 @@
 					<div class="M"><span></span></div>
 					<div class="S"><span></span></div>
 				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row justify-content-center mt-4">
+				<p>
+					距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
+					{{ action ? seconds : getSeconds(workTime * 60) }} 秒
+				</p>
 			</div>
 		</div>
 	</div>
