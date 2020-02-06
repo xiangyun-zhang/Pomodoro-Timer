@@ -1,6 +1,6 @@
 <template>
 	<div class="timer">
-		<div class="container-fluid">
+		<div class="container">
 			<p>今日你已完成 {{ haveFinished }} 个番茄时钟</p>
 			<p>
 				工作时长为
@@ -281,20 +281,16 @@
 							<b>9</b>
 						</div>
 					</div>
+					<div class="count_down">
+						<span>{{ action ? minutes : getMinutes(workTime * 60) }} : {{ action ? seconds : getSeconds(workTime * 60) }}</span>
+					</div>
 					<div class="H"><span></span></div>
 					<div class="M"><span></span></div>
 					<div class="S"><span></span></div>
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<div class="row justify-content-center mt-4">
-				<p>
-					距离{{ action ? (status == 'work' ? '工作' : '休息') : '工作' }}结束还有 {{ action ? minutes : getMinutes(workTime * 60) }} 分
-					{{ action ? seconds : getSeconds(workTime * 60) }} 秒
-				</p>
-			</div>
-		</div>
+		<div class="container"><div class="row justify-content-center mt-4"></div></div>
 	</div>
 </template>
 
@@ -517,7 +513,7 @@ export default {
 		left: 140px;
 
 		span {
-			width: 5px;
+			width: 6px;
 			height: 10px;
 			background: black;
 			display: inline-block;
@@ -561,6 +557,12 @@ export default {
 				display: inline-block;
 			}
 		}
+	}
+
+	.count_down {
+		position: absolute;
+		left: 42%;
+		top: 60%;
 	}
 
 	.H,
@@ -621,6 +623,9 @@ export default {
 
 // pad & pc
 @media (min-width: 768px) {
+	.timer {
+		font-size: 2rem;
+	}
 	.clock {
 		width: 500px;
 		height: 500px;
@@ -648,6 +653,11 @@ export default {
 				}
 			}
 		}
+
+		.count_down {
+			left: 41%;
+		}
+
 		.H {
 			span {
 				height: 135px;
