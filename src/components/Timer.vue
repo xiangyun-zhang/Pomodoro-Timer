@@ -91,15 +91,11 @@ export default {
 	created: function() {
 		// 在渲染前拿到当天已完成的次数
 		this.getTodayFinished();
-		for (let i = 0; i <= this.workTime; i++) {
-			this.timerDial[i] = i % 5 == 0 ? i : '';
-		}
-		for (let i = 0; i <= this.shortRest; i++) {
-			this.shorRestDial[i] = i % 5 == 0 ? i : '';
-		}
-		for (let i = 0; i <= this.longRest; i++) {
-			this.longRestDial[i] = i % 5 == 0 ? i : '';
-		}
+
+		// 设置各项计时器刻度
+		this.setTimerDial(this.workTime, this.timerDial);
+		this.setTimerDial(this.shortRest, this.shorRestDial);
+		this.setTimerDial(this.longRest, this.longRestDial);
 	},
 	mounted: function() {
 		// 制作表盘
@@ -277,6 +273,12 @@ export default {
 				} else {
 					this.haveFinished = finishedHash[today];
 				}
+			}
+		},
+		// 设置计时器刻度
+		setTimerDial: function(timer, timerDial) {
+			for (let i = 0; i <= timer; i++) {
+				timerDial[i] = i % 5 == 0 ? i : '';
 			}
 		}
 	}
