@@ -358,7 +358,7 @@ export default {
 		return {
 			action: false, // 番茄时钟是否进行状态
 			status: 'unhold', // 工作状态：work、rest、unhold
-			groupCount: process.env.VUE_APP_SECRET, // 一个工作组包含的番茄时钟数
+			groupCount: process.env.VUE_APP_GROUP_COUNT, // 一个工作组包含的番茄时钟数
 			workCount: 0, // 正在进行的番茄时钟完成数
 			haveFinished: 0, // 已经完成的番茄时钟个数
 			workTime: process.env.VUE_APP_WORK_TIME, // 番茄时钟工作时间（分）
