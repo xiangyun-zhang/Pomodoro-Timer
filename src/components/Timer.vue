@@ -260,26 +260,13 @@
 						</div>
 					</div>
 					<div class="clock_dial">
-						<div class="dial">
-							<span></span>
-							<br />
-							<b>12</b>
-						</div>
-						<div class="dial">
-							<span></span>
-							<br />
-							<b>3</b>
-						</div>
-						<div class="dial">
-							<span></span>
-							<br />
-							<b>6</b>
-						</div>
-						<div class="dial">
-							<span></span>
-							<br />
-							<b>9</b>
-						</div>
+						<template v-for="(dial, index) in clockDial">
+							<div class="dial" :key="index">
+								<span></span>
+								<br />
+								<b>{{ dial }}</b>
+							</div>
+						</template>
 					</div>
 					<div class="count_down">
 						<span>{{ action ? minutes : getMinutes(workTime * 60) }} : {{ action ? seconds : getSeconds(workTime * 60) }}</span>
@@ -300,6 +287,23 @@ var storage = window.localStorage;
 export default {
 	name: 'Timer',
 	props: {},
+	data() {
+		return {
+			action: false, // 番茄时钟是否进行状态
+			status: 'unhold', // 工作状态：work、rest、unhold
+			groupCount: process.env.VUE_APP_GROUP_COUNT, // 一个工作组包含的番茄时钟数
+			workCount: 0, // 正在进行的番茄时钟完成数
+			haveFinished: 0, // 已经完成的番茄时钟个数
+			workTime: process.env.VUE_APP_WORK_TIME, // 番茄时钟工作时间（分）
+			shortRest: process.env.VUE_APP_SHORT_TIME, // 短休息时长（分）
+			longRest: process.env.VUE_APP_LONG_REST, // 长休息时长（分）
+			maxtime: 0, // 倒计时总时长（秒）
+			minutes: '00',
+			seconds: '00',
+			timer: 0, // 执行计时器
+			clockDial: [12, 3, 6, 9] // 时钟刻度
+		};
+	},
 	created: function() {
 		// 在渲染前拿到当天已完成的次数，若没有则新建当天记数字段
 		let nowTime = new Date();
@@ -323,7 +327,7 @@ export default {
 		// 制作表盘
 		let clock_dial = document.querySelectorAll('.clock_dial .dial');
 		for (let i = 0; i < clock_dial.length; i++) {
-			let angle = (360 / 4) * i;
+			let angle = (360 / this.clockDial.length) * i;
 			clock_dial[i].style.transform = 'rotate(' + angle + 'deg)';
 			clock_dial[i].lastChild.style.transform = 'rotate(' + -angle + 'deg)';
 		}
@@ -339,6 +343,7 @@ export default {
 		}
 	},
 	watch: {
+		// 计时器状态变化之后设置计时器
 		timerStatus() {
 			this.$nextTick(function() {
 				this.setTimer();
@@ -353,22 +358,6 @@ export default {
 			finishedHash[today] = this.haveFinished;
 			storage.setItem('have_finished', JSON.stringify(finishedHash));
 		}
-	},
-	data() {
-		return {
-			action: false, // 番茄时钟是否进行状态
-			status: 'unhold', // 工作状态：work、rest、unhold
-			groupCount: process.env.VUE_APP_GROUP_COUNT, // 一个工作组包含的番茄时钟数
-			workCount: 0, // 正在进行的番茄时钟完成数
-			haveFinished: 0, // 已经完成的番茄时钟个数
-			workTime: process.env.VUE_APP_WORK_TIME, // 番茄时钟工作时间（分）
-			shortRest: process.env.VUE_APP_SHORT_TIME, // 短休息时长（分）
-			longRest: process.env.VUE_APP_LONG_REST, // 长休息时长（分）
-			maxtime: 0, // 倒计时总时长（秒）
-			minutes: '00',
-			seconds: '00',
-			timer: 0 // 执行计时器
-		};
 	},
 	methods: {
 		// 获取倒计时时剩余分钟数
