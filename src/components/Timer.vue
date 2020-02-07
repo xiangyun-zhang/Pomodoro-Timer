@@ -14,250 +14,31 @@
 			<div class="row justify-content-center mt-4">
 				<div class="clock" v-on:click="action ? resetTimer() : beginWork()">
 					<div class="clock_timer" v-if="status == 'work' || status == 'unhold'">
-						<div class="dial">
-							<b>0</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>5</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>10</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>15</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>20</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>25</b>
-							<br />
-							<span></span>
-						</div>
+						<template v-for="(dial, index) in timerDial">
+							<div class="dial" :key="index">
+								<b>{{ dial }}</b>
+								<br />
+								<span></span>
+							</div>
+						</template>
 					</div>
 					<div class="clock_timer" v-else-if="status == 'rest' && this.workCount % this.groupCount !== 0">
-						<div class="dial">
-							<b>0</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>5</b>
-							<br />
-							<span></span>
-						</div>
+						<template v-for="(dial, index) in shorRestDial">
+							<div class="dial" :key="index">
+								<b>{{ dial }}</b>
+								<br />
+								<span></span>
+							</div>
+						</template>
 					</div>
 					<div class="clock_timer" v-else-if="status == 'rest' && this.workCount % this.groupCount == 0">
-						<div class="dial">
-							<b>0</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>5</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>10</b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b></b>
-							<br />
-							<span></span>
-						</div>
-						<div class="dial">
-							<b>15</b>
-							<br />
-							<span></span>
-						</div>
+						<template v-for="(dial, index) in longRestDial">
+							<div class="dial" :key="index">
+								<b>{{ dial }}</b>
+								<br />
+								<span></span>
+							</div>
+						</template>
 					</div>
 					<div class="clock_dial">
 						<template v-for="(dial, index) in clockDial">
@@ -301,26 +82,23 @@ export default {
 			minutes: '00',
 			seconds: '00',
 			timer: 0, // 执行计时器
-			clockDial: [12, 3, 6, 9] // 时钟刻度
+			clockDial: [12, 3, 6, 9], // 时钟刻度
+			timerDial: [],
+			shorRestDial: [],
+			longRestDial: []
 		};
 	},
 	created: function() {
-		// 在渲染前拿到当天已完成的次数，若没有则新建当天记数字段
-		let nowTime = new Date();
-		let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
-		let finishedHash = storage.getItem('have_finished');
-		if (finishedHash == null) {
-			finishedHash = new Object();
-			finishedHash[today] = this.haveFinished;
-			storage.setItem('have_finished', JSON.stringify(finishedHash));
-		} else {
-			finishedHash = JSON.parse(finishedHash);
-			if (finishedHash[today] == undefined) {
-				finishedHash[today] = this.haveFinished;
-				storage.setItem('have_finished', JSON.stringify(finishedHash));
-			} else {
-				this.haveFinished = finishedHash[today];
-			}
+		// 在渲染前拿到当天已完成的次数
+		this.getTodayFinished();
+		for (let i = 0; i <= this.workTime; i++) {
+			this.timerDial[i] = i % 5 == 0 ? i : '';
+		}
+		for (let i = 0; i <= this.shortRest; i++) {
+			this.shorRestDial[i] = i % 5 == 0 ? i : '';
+		}
+		for (let i = 0; i <= this.longRest; i++) {
+			this.longRestDial[i] = i % 5 == 0 ? i : '';
 		}
 	},
 	mounted: function() {
@@ -481,6 +259,25 @@ export default {
 			let clock_timer = document.querySelector('.clock_timer');
 			// 将计时器刻度与当前分钟对齐
 			clock_timer.style.transform = 'rotate(' + M * 6 + 'deg)';
+		},
+		// 获取当天已完成番茄时钟次数，若没有则新建当天记数字段
+		getTodayFinished: function() {
+			let nowTime = new Date();
+			let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
+			let finishedHash = storage.getItem('have_finished');
+			if (finishedHash == null) {
+				finishedHash = new Object();
+				finishedHash[today] = this.haveFinished;
+				storage.setItem('have_finished', JSON.stringify(finishedHash));
+			} else {
+				finishedHash = JSON.parse(finishedHash);
+				if (finishedHash[today] == undefined) {
+					finishedHash[today] = this.haveFinished;
+					storage.setItem('have_finished', JSON.stringify(finishedHash));
+				} else {
+					this.haveFinished = finishedHash[today];
+				}
+			}
 		}
 	}
 };
