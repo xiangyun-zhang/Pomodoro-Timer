@@ -4,9 +4,17 @@
 			<p>今日你已完成 {{ haveFinished }} 个番茄时钟</p>
 			<p>
 				工作时长为
-				<button v-on:click="setTimerTime('workTime', 'minus')" :disabled="canMinusWorkTime">-</button>
+				<button class="timer-controller" v-on:click="setTimerTime('workTime', 'minus')" :disabled="canMinusWorkTime">
+					<svg class="icon" width="auto" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+						<path fill="#8a8a8a" d="M768 0v1024L256 512 768 0z" />
+					</svg>
+				</button>
 				{{ getMinutes(workTime * 60) }}
-				<button v-on:click="setTimerTime('workTime', 'add')" :disabled="canAddWorkTime">+</button>
+				<button class="timer-controller" v-on:click="setTimerTime('workTime', 'add')" :disabled="canAddWorkTime">
+					<svg class="icon" width="auto" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+						<path fill="#8a8a8a" d="M256 0v1024l512-512L256 0z" />
+					</svg>
+				</button>
 				分钟
 			</p>
 		</div>
@@ -314,125 +322,139 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.clock {
-	width: 300px;
-	height: 300px;
-	border: 0;
-	border-radius: 50%;
-	position: relative;
-
-	.dial {
-		position: absolute;
-		width: 20px;
+.timer {
+	.timer-controller {
+		padding: 0px;
+		width: 34px;
+		text-align: center;
 		height: 100%;
-		top: 0;
-		left: 140px;
-
-		span {
-			width: 6px;
-			height: 10px;
-			background: black;
-			display: inline-block;
-			vertical-align: top;
+		border: #000000;
+		background-color: transparent;
+		outline: none;
+		svg {
+			margin-bottom: 7px;
 		}
 	}
-	.clock_timer {
-		font-size: 18px;
-		width: 100%;
-		height: 100%;
-		background-color: rgb(254, 67, 101);
-		border-radius: 50%;
-		top: 0;
-		left: 0;
-		position: absolute;
-		transition: 1.5s;
-		.dial {
-			span {
-				width: 1px;
-				height: 30px;
-				vertical-align: bottom;
-			}
-		}
-	}
-	.clock_dial {
-		font-size: 18px;
-		width: 74%;
-		height: 74%;
-		background-color: rgb(249, 205, 173);
-		top: 13%;
-		left: 13%;
+	.clock {
+		width: 300px;
+		height: 300px;
+		border: 0;
 		border-radius: 50%;
 		position: relative;
+
 		.dial {
-			left: 101px;
-			span {
-				height: 15px;
-				display: inline-block;
-			}
-			b {
-				display: inline-block;
-			}
-		}
-	}
-
-	.count_down {
-		position: absolute;
-		left: 42%;
-		top: 60%;
-	}
-
-	.H,
-	.M,
-	.S {
-		position: absolute;
-		height: 100%;
-		top: 0;
-		left: 50%;
-		-webkit-transform: translate3d(-50%, 0, 0);
-		-ms-transform: translate3d(-50%, 0, 0);
-		-o-transform: translate3d(-50%, 0, 0);
-		text-align: center;
-	}
-
-	.H {
-		span {
-			margin-top: 80px;
-			width: 6px;
-			height: 80px;
-			background: black;
-			display: inline-block;
-		}
-	}
-
-	.M {
-		span {
-			margin-top: 60px;
-			height: 100px;
-			width: 6px;
-			background: black;
-			display: inline-block;
-		}
-	}
-
-	.S {
-		span {
-			margin-top: 45px;
-			height: 120px;
-			width: 3px;
-			background: red;
-			display: inline-block;
-			position: relative;
-		}
-
-		span:after {
-			content: '';
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-			background: red;
 			position: absolute;
-			bottom: 10px;
-			left: -3.5px;
+			width: 20px;
+			height: 100%;
+			top: 0;
+			left: 140px;
+
+			span {
+				width: 6px;
+				height: 10px;
+				background: black;
+				display: inline-block;
+				vertical-align: top;
+			}
+		}
+		.clock_timer {
+			font-size: 18px;
+			width: 100%;
+			height: 100%;
+			background-color: rgb(254, 67, 101);
+			border-radius: 50%;
+			top: 0;
+			left: 0;
+			position: absolute;
+			transition: 1.5s;
+			.dial {
+				span {
+					width: 1px;
+					height: 30px;
+					vertical-align: bottom;
+				}
+			}
+		}
+		.clock_dial {
+			font-size: 18px;
+			width: 74%;
+			height: 74%;
+			background-color: rgb(249, 205, 173);
+			top: 13%;
+			left: 13%;
+			border-radius: 50%;
+			position: relative;
+			.dial {
+				left: 101px;
+				span {
+					height: 15px;
+					display: inline-block;
+				}
+				b {
+					display: inline-block;
+				}
+			}
+		}
+
+		.count_down {
+			position: absolute;
+			left: 42%;
+			top: 60%;
+		}
+
+		.H,
+		.M,
+		.S {
+			position: absolute;
+			height: 100%;
+			top: 0;
+			left: 50%;
+			-webkit-transform: translate3d(-50%, 0, 0);
+			-ms-transform: translate3d(-50%, 0, 0);
+			-o-transform: translate3d(-50%, 0, 0);
+			text-align: center;
+		}
+
+		.H {
+			span {
+				margin-top: 80px;
+				width: 6px;
+				height: 80px;
+				background: black;
+				display: inline-block;
+			}
+		}
+
+		.M {
+			span {
+				margin-top: 60px;
+				height: 100px;
+				width: 6px;
+				background: black;
+				display: inline-block;
+			}
+		}
+
+		.S {
+			span {
+				margin-top: 45px;
+				height: 120px;
+				width: 3px;
+				background: red;
+				display: inline-block;
+				position: relative;
+			}
+
+			span:after {
+				content: '';
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: red;
+				position: absolute;
+				bottom: 10px;
+				left: -3.5px;
+			}
 		}
 	}
 }
@@ -441,56 +463,56 @@ export default {
 @media (min-width: 768px) {
 	.timer {
 		font-size: 2rem;
-	}
-	.clock {
-		width: 500px;
-		height: 500px;
+		.clock {
+			width: 500px;
+			height: 500px;
 
-		.dial {
-			left: 240px;
-		}
-
-		.clock_timer {
-			font-size: 25px;
 			.dial {
-				span {
-					width: 2px;
-					vertical-align: bottom;
+				left: 240px;
+			}
+
+			.clock_timer {
+				font-size: 25px;
+				.dial {
+					span {
+						width: 2px;
+						vertical-align: bottom;
+					}
 				}
 			}
-		}
 
-		.clock_dial {
-			font-size: 25px;
-			.dial {
-				left: 175px;
-				span {
-					height: 20px;
+			.clock_dial {
+				font-size: 25px;
+				.dial {
+					left: 175px;
+					span {
+						height: 20px;
+					}
 				}
 			}
-		}
 
-		.count_down {
-			left: 41%;
-		}
-
-		.H {
-			span {
-				height: 135px;
-				margin-top: 125px;
+			.count_down {
+				left: 41%;
 			}
-		}
 
-		.M {
-			span {
-				height: 165px;
-				margin-top: 95px;
+			.H {
+				span {
+					height: 135px;
+					margin-top: 125px;
+				}
 			}
-		}
-		.S {
-			span {
-				height: 190px;
-				margin-top: 76px;
+
+			.M {
+				span {
+					height: 165px;
+					margin-top: 95px;
+				}
+			}
+			.S {
+				span {
+					height: 190px;
+					margin-top: 76px;
+				}
 			}
 		}
 	}
