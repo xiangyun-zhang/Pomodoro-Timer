@@ -4,9 +4,9 @@
 			<p>今日你已完成 {{ haveFinished }} 个番茄时钟</p>
 			<p>
 				工作时长为
-				<!-- <button v-on:click="function(){workTime>5?workTime-=5:workTime=5}">-</button> -->
+				<button v-on:click="setTimerTime('workTime', 'minus')" :disabled="canMinusWorkTime">-</button>
 				{{ getMinutes(workTime * 60) }}
-				<!-- <button v-on:click="function(){workTime<55?workTime+=5:workTime=55}">+</button> -->
+				<button v-on:click="setTimerTime('workTime', 'add')" :disabled="canAddWorkTime">+</button>
 				分钟
 			</p>
 		</div>
@@ -72,12 +72,12 @@ export default {
 		return {
 			action: false, // 番茄时钟是否进行状态
 			status: 'unhold', // 工作状态：work、rest、unhold
-			groupCount: process.env.VUE_APP_GROUP_COUNT, // 一个工作组包含的番茄时钟数
+			groupCount: parseInt(process.env.VUE_APP_GROUP_COUNT), // 一个工作组包含的番茄时钟数
 			workCount: 0, // 正在进行的番茄时钟完成数
 			haveFinished: 0, // 已经完成的番茄时钟个数
-			workTime: process.env.VUE_APP_WORK_TIME, // 番茄时钟工作时间（分）
-			shortRest: process.env.VUE_APP_SHORT_TIME, // 短休息时长（分）
-			longRest: process.env.VUE_APP_LONG_REST, // 长休息时长（分）
+			workTime: parseInt(process.env.VUE_APP_WORK_TIME), // 番茄时钟工作时间（分）
+			shortRest: parseInt(process.env.VUE_APP_SHORT_TIME), // 短休息时长（分）
+			longRest: parseInt(process.env.VUE_APP_LONG_REST), // 长休息时长（分）
 			maxtime: 0, // 倒计时总时长（秒）
 			minutes: '00',
 			seconds: '00',
@@ -112,13 +112,18 @@ export default {
 		}, 1000);
 	},
 	computed: {
-		timerStatus: function() {
-			return this.status;
+		// 工作时长超过55分钟时不允许再增加
+		canAddWorkTime() {
+			return this.workTime >= 55;
+		},
+		// 工作时长只有5分钟时不允许再减少
+		canMinusWorkTime() {
+			return this.workTime <= 5;
 		}
 	},
 	watch: {
 		// 计时器状态变化之后设置计时器
-		timerStatus() {
+		status() {
 			this.$nextTick(function() {
 				this.setTimer();
 			});
@@ -131,6 +136,13 @@ export default {
 			finishedHash = JSON.parse(finishedHash);
 			finishedHash[today] = this.haveFinished;
 			storage.setItem('have_finished', JSON.stringify(finishedHash));
+		},
+		workTime() {
+			this.timerDial = [];
+			this.setTimerDial(this.workTime, this.timerDial);
+			this.$nextTick(function() {
+				this.setTimer();
+			});
 		}
 	},
 	methods: {
@@ -279,6 +291,22 @@ export default {
 		setTimerDial: function(timer, timerDial) {
 			for (let i = 0; i <= timer; i++) {
 				timerDial[i] = i % 5 == 0 ? i : '';
+			}
+		},
+		// 修改计时器时间
+		setTimerTime: function(name, operate) {
+			switch (name) {
+				case 'workTime':
+					this.workTime = operate == 'add' ? (this.workTime += 5) : (this.workTime -= 5);
+					break;
+				case 'shortRest':
+					this.shortRest = operate == 'add' ? (this.shortRest += 5) : (this.shortRest = 5);
+					break;
+				case 'longRest':
+					this.longRest = operate == 'add' ? (this.longRest += 5) : (this.longRest = 5);
+					break;
+				default:
+					break;
 			}
 		}
 	}
