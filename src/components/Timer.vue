@@ -5,13 +5,13 @@
 			<p>
 				工作时长为
 				<button class="timer-controller" v-on:click="setTimerTime('workTime', 'minus')" :disabled="canMinusWorkTime">
-					<svg class="icon" width="auto" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+					<svg class="icon" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
 						<path fill="#8a8a8a" d="M768 0v1024L256 512 768 0z" />
 					</svg>
 				</button>
 				{{ getMinutes(workTime * 60) }}
 				<button class="timer-controller" v-on:click="setTimerTime('workTime', 'add')" :disabled="canAddWorkTime">
-					<svg class="icon" width="auto" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+					<svg class="icon" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
 						<path fill="#8a8a8a" d="M256 0v1024l512-512L256 0z" />
 					</svg>
 				</button>
