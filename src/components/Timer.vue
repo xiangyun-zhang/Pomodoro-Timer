@@ -6,13 +6,15 @@
 				工作时长为
 				<button class="timer-controller" v-on:click="setTimerTime('workTime', 'minus')" :disabled="canMinusWorkTime">
 					<svg class="icon" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-						<path fill="#8a8a8a" d="M768 0v1024L256 512 768 0z" />
+						<path fill="#9e9e9e" d="M768 0v1024L256 512 768 0z" v-if="canMinusWorkTime" />
+						<path fill="#2c3e50" d="M768 0v1024L256 512 768 0z" v-else />
 					</svg>
 				</button>
 				{{ getMinutes(workTime * 60) }}
 				<button class="timer-controller" v-on:click="setTimerTime('workTime', 'add')" :disabled="canAddWorkTime">
 					<svg class="icon" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-						<path fill="#8a8a8a" d="M256 0v1024l512-512L256 0z" />
+						<path fill="#9e9e9e" d="M256 0v1024l512-512L256 0z" v-if="canAddWorkTime" />
+						<path fill="#2c3e50" d="M256 0v1024l512-512L256 0z" v-else />
 					</svg>
 				</button>
 				分钟
@@ -122,10 +124,16 @@ export default {
 	computed: {
 		// 工作时长超过55分钟时不允许再增加
 		canAddWorkTime() {
+			if (this.status != 'unhold') {
+				return true;
+			}
 			return this.workTime >= 55;
 		},
 		// 工作时长只有5分钟时不允许再减少
 		canMinusWorkTime() {
+			if (this.status != 'unhold') {
+				return true;
+			}
 			return this.workTime <= 5;
 		}
 	},
