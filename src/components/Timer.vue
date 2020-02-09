@@ -331,6 +331,7 @@ export default {
 
 <style scoped lang="scss">
 .timer {
+	text-align: center;
 	.timer-controller {
 		padding: 0px;
 		width: 34px;
