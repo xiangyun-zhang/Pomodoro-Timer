@@ -1,14 +1,19 @@
 <template>
-	<div id="app"><Timer /></div>
+	<div id="app">
+		<ToDo />
+		<Timer />
+	</div>
 </template>
 
 <script>
+import ToDo from './components/ToDo.vue';
 import Timer from './components/Timer.vue';
 
 export default {
 	name: 'app',
 	components: {
-		Timer
+		Timer,
+		ToDo
 	},
 	mounted: function() {
 		// 检查是否有权限发出通知；如果没有，则请求获得权限
