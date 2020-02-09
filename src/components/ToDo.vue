@@ -22,13 +22,9 @@
 									<div class="form-group">
 										<label for="taskType">任务类型</label>
 										<select class="form-control" id="taskType">
-											<option>计划任务</option>
-											<option>计划外/紧急任务</option>
+											<option value="1">计划任务</option>
+											<option value="2">计划外/紧急任务</option>
 										</select>
-									</div>
-									<div class="form-group">
-										<label for="taskDate">任务日期</label>
-										<input type="text" class="form-control" id="taskDate" />
 									</div>
 									<div class="form-group">
 										<label for="taskContent">任务内容</label>
@@ -38,7 +34,7 @@
 										<label for="taskEstimate">用时估计</label>
 										<div class="form-row">
 											<div class="col"><span>预计花费</span></div>
-											<div class="col-1"><input type="number" class="form-control" id="taskEstimate" /></div>
+											<div class="col-4"><input type="number" class="form-control" id="taskEstimate" /></div>
 											<div class="col"><span>个番茄时钟</span></div>
 										</div>
 									</div>
@@ -47,7 +43,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
+							<button type="button" class="btn btn-primary" v-on:click="saveTask()">添加</button>
 						</div>
 					</div>
 				</div>
@@ -73,12 +69,51 @@
 
 <script>
 import $ from 'jquery';
+var storage = window.localStorage;
 export default {
 	name: 'ToDo',
-	mounted() {
-		$(function() {
-			$('#taskDate').datetimepicker();
-		});
+	mounted() {},
+	methods: {
+		// 存储任务
+		saveTask() {
+			let nowTime = new Date();
+			let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
+			// 获取所有任务
+			let tasks = storage.getItem('tasks');
+			let taskId = 0;
+			// 初次使用时新建任务字段，并初始化当天对象
+			if (tasks == null) {
+				tasks = new Object();
+				tasks[today] = new Object();
+				taskId = 1;
+			} else {
+				tasks = JSON.parse(tasks);
+
+				// 若当天无内容则初始化当天对象
+				if (tasks[today] == undefined) {
+					tasks[today] = new Object();
+					taskId = 1;
+				} else {
+					// 有内容则taskId 递增
+					taskId = Object.keys(tasks[today]).length + 1;
+				}
+			}
+
+			// 当前任务
+			let task = new Object();
+			task['type'] = $('#taskType').val();
+			task['content'] = $('#taskContent').val();
+			task['estimate'] = $('#taskEstimate').val();
+			task['delete'] = 0;
+
+			tasks[today][taskId] = task;
+			storage.setItem('tasks', JSON.stringify(tasks));
+
+			//清空表格
+			$('#taskType').val(1);
+			$('#taskContent').val('');
+			$('#taskEstimate').val('');
+		}
 	}
 };
 </script>
