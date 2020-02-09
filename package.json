@@ -12,6 +12,7 @@
     "core-js": "^3.4.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
+    "moment": "^2.24.0",
     "popper.js": "^1.16.0",
     "vue": "^2.6.10"
   },
@@ -36,8 +37,8 @@
       "eslint:recommended"
     ],
     "rules": {
-		"no-unused-vars": "off"
-	},
+      "no-unused-vars": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

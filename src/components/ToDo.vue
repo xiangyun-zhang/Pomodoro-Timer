@@ -28,7 +28,7 @@
 									</div>
 									<div class="form-group">
 										<label for="taskDate">任务日期</label>
-										
+										<input type="text" class="form-control" id="taskDate" />
 									</div>
 									<div class="form-group">
 										<label for="taskContent">任务内容</label>
@@ -72,8 +72,14 @@
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
-	name: 'ToDo'
+	name: 'ToDo',
+	mounted() {
+		$(function() {
+			$('#taskDate').datetimepicker();
+		});
+	}
 };
 </script>
 
