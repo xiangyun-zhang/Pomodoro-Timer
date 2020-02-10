@@ -87,8 +87,20 @@
 <script>
 import $ from 'jquery';
 var storage = window.localStorage;
+var nowTime = new Date();
+var today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
 export default {
 	name: 'ToDo',
+	data() {
+		return {
+			toDoList: {},
+			toDoHistory: {}
+		};
+	},
+	created() {
+		this.toDoList = this.getTasks(today);
+		this.toDoHistory = this.getTasks();
+	},
 	mounted() {},
 	methods: {
 		// 去除字符串两端空格
@@ -118,10 +130,23 @@ export default {
 				this.saveTask(task);
 			}
 		},
+		// 获取任务
+		getTasks(date = '') {
+			let tasks = storage.getItem('tasks');
+
+			// 若没有，
+			if (tasks != null) {
+				tasks = JSON.parse(tasks);
+
+				if (date != '') {
+					tasks = tasks[date];
+				}
+			}
+			window.console.log(tasks);
+			return tasks;
+		},
 		// 存储任务
 		saveTask(task) {
-			let nowTime = new Date();
-			let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
 			// 获取所有任务
 			let tasks = storage.getItem('tasks');
 			let taskId = 0;
@@ -143,6 +168,10 @@ export default {
 				}
 			}
 			tasks[today][taskId] = task;
+			// 更新数据
+			this.toDoList[taskId]=task;
+			this.toDoHistory[today] = tasks[today];
+			// 存入localstorage
 			storage.setItem('tasks', JSON.stringify(tasks));
 
 			this.resetForm();
