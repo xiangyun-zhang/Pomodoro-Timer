@@ -6,6 +6,7 @@
 				<div class="btn-group">
 					<button class="btn btn-outline-primary btn-sm" type="button" data-toggle="modal" data-target="#addToDo">添加任务</button>
 					<button class="btn btn-outline-primary btn-sm" type="button" data-toggle="modal" data-target="#toDoList">今日待办</button>
+					<button class="btn btn-outline-primary btn-sm" type="button" data-toggle="modal" data-target="#toDoHistory">历史待办</button>
 				</div>
 			</div>
 			<!-- Modal -->
@@ -53,6 +54,22 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="toDoListModalLabel">今日待办任务</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">...</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="toDoHistory" tabindex="-1" role="dialog" aria-labelledby="toDoHistoryModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="toDoHistoryModalLabel">历史待办任务</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						</div>
 						<div class="modal-body">...</div>
