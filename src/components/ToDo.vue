@@ -42,8 +42,8 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-primary" v-on:click="saveTask()">添加</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="resetForm()">关闭</button>
+							<button type="button" class="btn btn-primary" v-on:click="checkForm()">添加任务</button>
 						</div>
 					</div>
 				</div>
@@ -74,8 +74,35 @@ export default {
 	name: 'ToDo',
 	mounted() {},
 	methods: {
+		// 去除字符串两端空格
+		trim(str) {
+			return str.replace(/(^\s*)|(\s*$)/g, '');
+		},
+		// 检查任务提交表格填写情况
+		checkForm() {
+			let content = this.trim($('#taskContent').val());
+			let estimate = this.trim($('#taskEstimate').val());
+			$('#taskContent').removeClass('is-invalid');
+			$('#taskEstimate').removeClass('is-invalid');
+			if (content == '' || estimate == '' || estimate == 0) {
+				if (content == '') {
+					$('#taskContent').addClass('is-invalid');
+				}
+				if (estimate == '' || estimate == 0) {
+					$('#taskEstimate').addClass('is-invalid');
+				}
+			} else {
+				// 当前任务
+				let task = new Object();
+				task['type'] = $('#taskType').val();
+				task['content'] = content;
+				task['estimate'] = estimate;
+				task['delete'] = 0;
+				this.saveTask(task);
+			}
+		},
 		// 存储任务
-		saveTask() {
+		saveTask(task) {
 			let nowTime = new Date();
 			let today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
 			// 获取所有任务
@@ -98,21 +125,18 @@ export default {
 					taskId = Object.keys(tasks[today]).length + 1;
 				}
 			}
-
-			// 当前任务
-			let task = new Object();
-			task['type'] = $('#taskType').val();
-			task['content'] = $('#taskContent').val();
-			task['estimate'] = $('#taskEstimate').val();
-			task['delete'] = 0;
-
 			tasks[today][taskId] = task;
 			storage.setItem('tasks', JSON.stringify(tasks));
 
-			//清空表格
+			this.resetForm();
+		},
+		//初始化表格
+		resetForm() {
 			$('#taskType').val(1);
 			$('#taskContent').val('');
+			$('#taskContent').removeClass('is-invalid');
 			$('#taskEstimate').val('');
+			$('#taskEstimate').removeClass('is-invalid');
 		}
 	}
 };
