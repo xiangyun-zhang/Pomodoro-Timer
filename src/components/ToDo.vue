@@ -80,10 +80,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
-						</div>
+						<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button></div>
 					</div>
 				</div>
 			</div>
@@ -95,11 +92,35 @@
 							<h5 class="modal-title" id="toDoHistoryModalLabel">历史待办任务</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						</div>
-						<div class="modal-body">...</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
+						<div class="modal-body">
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">日期</th>
+										<th scope="col">类型</th>
+										<th scope="col">内容</th>
+										<th scope="col">预计耗时</th>
+										<th scope="col">实际耗时</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<template v-for="(dates, index) in toDoHistory">
+										<template v-for="(todo, id) in dates">
+											<tr :key="index + id">
+												<td>{{ index }}</td>
+												<td>{{ todo.type == 1 ? '计划任务' : '计划外/紧急任务' }}</td>
+												<td>{{ todo.content }}</td>
+												<td>{{ todo.estimate }}</td>
+												<td></td>
+												<td><span>&times;</span></td>
+											</tr>
+										</template>
+									</template>
+								</tbody>
+							</table>
 						</div>
+						<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button></div>
 					</div>
 				</div>
 			</div>
