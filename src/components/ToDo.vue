@@ -56,7 +56,30 @@
 							<h5 class="modal-title" id="toDoListModalLabel">今日待办任务</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						</div>
-						<div class="modal-body">...</div>
+						<div class="modal-body">
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">类型</th>
+										<th scope="col">内容</th>
+										<th scope="col">预计耗时</th>
+										<th scope="col">实际耗时</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<template v-for="(todo, index) in toDoList">
+										<tr :key="index">
+											<td>{{ todo.type == 1 ? '计划任务' : '计划外/紧急任务' }}</td>
+											<td>{{ todo.content }}</td>
+											<td>{{ todo.estimate }}</td>
+											<td></td>
+											<td><span>&times;</span></td>
+										</tr>
+									</template>
+								</tbody>
+							</table>
+						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary">Save changes</button>
@@ -98,8 +121,8 @@ export default {
 		};
 	},
 	created() {
-		this.toDoList = this.getTasks(today);
-		this.toDoHistory = this.getTasks();
+		this.toDoList = this.getTasks(today) == undefined ? {} : this.getTasks(today);
+		this.toDoHistory = this.getTasks() == undefined ? {} : this.getTasks();
 	},
 	mounted() {},
 	methods: {
@@ -142,7 +165,6 @@ export default {
 					tasks = tasks[date];
 				}
 			}
-			window.console.log(tasks);
 			return tasks;
 		},
 		// 存储任务
@@ -169,12 +191,13 @@ export default {
 			}
 			tasks[today][taskId] = task;
 			// 更新数据
-			this.toDoList[taskId]=task;
+			this.toDoList[taskId] = task;
 			this.toDoHistory[today] = tasks[today];
 			// 存入localstorage
 			storage.setItem('tasks', JSON.stringify(tasks));
 
 			this.resetForm();
+			this.$forceUpdate();
 		},
 		//初始化表格
 		resetForm() {
