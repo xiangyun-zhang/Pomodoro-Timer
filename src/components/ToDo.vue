@@ -94,11 +94,9 @@
 						</div>
 						<div class="modal-body">
 							<datepicker placeholder="选择日期" v-model="datePicked" format="yyyy-M-dd"></datepicker>
-							<p>{{ datePicked }}</p>
 							<table class="table">
 								<thead class="thead-dark">
 									<tr>
-										<th scope="col">日期</th>
 										<th scope="col">类型</th>
 										<th scope="col">内容</th>
 										<th scope="col">预计耗时</th>
@@ -106,20 +104,18 @@
 										<th scope="col"></th>
 									</tr>
 								</thead>
-								<tbody>
-									<template v-for="(dates, index) in toDoHistory">
-										<template v-for="(todo, id) in dates">
-											<tr :key="index + id">
-												<td>{{ index }}</td>
-												<td>{{ todo.type == 1 ? '计划任务' : '计划外/紧急任务' }}</td>
-												<td>{{ todo.content }}</td>
-												<td>{{ todo.estimate }}</td>
-												<td></td>
-												<td><span>&times;</span></td>
-											</tr>
-										</template>
+								<tbody v-if="toDoHistory[selectDate] != undefined">
+									<template v-for="(todo, id) in toDoHistory[selectDate]">
+										<tr :key="id">
+											<td>{{ todo.type == 1 ? '计划任务' : '计划外/紧急任务' }}</td>
+											<td>{{ todo.content }}</td>
+											<td>{{ todo.estimate }}</td>
+											<td></td>
+											<td><span>&times;</span></td>
+										</tr>
 									</template>
 								</tbody>
+								<tbody v-else><tr>(无)</tr></tbody>
 							</table>
 						</div>
 						<div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button></div>
