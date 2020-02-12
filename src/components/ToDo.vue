@@ -93,6 +93,8 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						</div>
 						<div class="modal-body">
+							<datepicker placeholder="选择日期" v-model="datePicked" format="yyyy-M-dd"></datepicker>
+							<p>{{ datePicked }}</p>
 							<table class="table">
 								<thead class="thead-dark">
 									<tr>
@@ -129,17 +131,29 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker';
 import $ from 'jquery';
 var storage = window.localStorage;
 var nowTime = new Date();
 var today = nowTime.getFullYear() + '-' + (nowTime.getMonth() + 1) + '-' + nowTime.getDate();
 export default {
 	name: 'ToDo',
+	components: {
+		Datepicker
+	},
 	data() {
 		return {
 			toDoList: {},
-			toDoHistory: {}
+			toDoHistory: {},
+			datePicked: '',
+			selectDate: '' // 历史任务中所选的日期
 		};
+	},
+	watch: {
+		datePicked() {
+			let time = new Date(this.datePicked);
+			this.selectDate = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
+		}
 	},
 	created() {
 		this.toDoList = this.getTasks(today) == undefined ? {} : this.getTasks(today);
