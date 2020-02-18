@@ -11,12 +11,9 @@
 			</div>
 			<!-- Modal -->
 			<div class="modal fade" id="addToDo" tabindex="-1" role="dialog" aria-labelledby="addToDoModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="addToDoModalLabel">增加任务</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						</div>
+						<div class="modal-header"><h5 class="modal-title" id="addToDoModalLabel">增加任务</h5></div>
 						<div class="modal-body">
 							<div class="container">
 								<form>
@@ -50,12 +47,9 @@
 				</div>
 			</div>
 			<div class="modal fade" id="toDoList" tabindex="-1" role="dialog" aria-labelledby="toDoListModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="toDoListModalLabel">今日待办任务</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						</div>
+						<div class="modal-header"><h5 class="modal-title" id="toDoListModalLabel">今日待办任务</h5></div>
 						<div class="modal-body">
 							<table class="table">
 								<thead class="thead-dark">
@@ -86,12 +80,9 @@
 			</div>
 
 			<div class="modal fade" id="toDoHistory" tabindex="-1" role="dialog" aria-labelledby="toDoHistoryModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="toDoHistoryModalLabel">历史待办任务</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						</div>
+						<div class="modal-header"><h5 class="modal-title" id="toDoHistoryModalLabel">历史待办任务</h5></div>
 						<div class="modal-body">
 							<datepicker placeholder="选择日期" v-model="datePicked" format="yyyy-M-dd"></datepicker>
 							<table class="table">
@@ -242,4 +233,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.todo {
+	.modal-content {
+		height: 500px;
+	}
+}
+</style>
