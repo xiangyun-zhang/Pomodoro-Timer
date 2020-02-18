@@ -16,27 +16,28 @@
 						<div class="modal-header"><h5 class="modal-title" id="addToDoModalLabel">增加任务</h5></div>
 						<div class="modal-body">
 							<div class="container">
-								<form>
-									<div class="form-group">
-										<label for="taskType">任务类型</label>
-										<select class="form-control" id="taskType">
-											<option value="1">计划任务</option>
-											<option value="2">计划外/紧急任务</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label for="taskContent">任务内容</label>
-										<textarea class="form-control" id="taskContent" rows="3"></textarea>
-									</div>
-									<div class="form-group">
-										<label for="taskEstimate">用时估计</label>
-										<div class="form-row">
-											<div class="col"><span>预计花费</span></div>
-											<div class="col-4"><input type="number" class="form-control" id="taskEstimate" /></div>
-											<div class="col"><span>个番茄时钟</span></div>
+								<div class="row">
+									<form class="col-12">
+										<div class="form-group">
+											<label for="taskType">任务类型：</label>
+											<select class="form-control" id="taskType">
+												<option value="1">计划任务</option>
+												<option value="2">计划外/紧急任务</option>
+											</select>
 										</div>
-									</div>
-								</form>
+										<div class="form-group">
+											<label for="taskContent">任务内容：</label>
+											<textarea class="form-control" id="taskContent" rows="3"></textarea>
+										</div>
+										<div class="form-group">
+											<label for="taskEstimate">预计花费：</label>
+											<div class="form-row align-items-center">
+												<div class="col-3"><input class="form-control text-center" id="taskEstimate" type="number" placeholder="0" /></div>
+												<div class="col"><span>个番茄时钟</span></div>
+											</div>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
